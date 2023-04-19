@@ -1,0 +1,55 @@
+.TH internsctl "v0.1.0" "internsctl manual"
+
+.SH NAME
+internsctl \- custom command for user operations
+
+.SH SYNOPSIS
+.B internsctl [options] [arguments]
+
+.SH DESCRIPTION
+It .B internsctl
+is a custom command made according to the user preferences. It provides several commands.
+
+.SH OPTIONS
+.TP
+\fB--help\fR
+Prints usage information and examples.
+
+.TP
+\fB--version\fR
+Prints the version of internsctl command. 
+
+.SH COMMANDS
+.TP
+\fBcpu getinfo\fR
+Gives CPU information of the server.
+
+.TP
+\fBmemory getinfo\fR
+Gives memory information of the server.
+
+.TP
+\fBuser create \fR\fIusername\fR
+Creates a user on the server with the specified username.
+
+.TP
+\fBuser list\fR
+Lists all the regular users present on the server.
+
+.TP
+\fBuser list\fR [\fB--sudo-only\fR]
+Lists all the users with sudo permission on the server.
+
+.TP
+\fBfile getinfo \fR\Ifilename\fR [\fB--size\fR | \fB-s\fR] [\fB--permissions\fR | \fB-p\fR] [\fB--owner\fR | \fB-o\fR] [\fB--last-modified\fR | \fB-m\fR]
+Gets information about the specified file. If no options are specified, the command returns the file name, access permissions, size, owner, and modification date. The \fB--size\fR or \fB-s\fR option prints only the file size. The \fB--permissions\fR or \fB-p\fR option prints only the file permissions. The \fB--owner\fR or \fB-o\fR option prints only the file owner. The \fB--last-modified\fR or \fB-m\fR option prints only the file modification date.
+
+.SH AUTHOR
+Written by
+.B Manoti Sehgal
+
+.SH REPORTING BUGS
+Report bugs to \fBmanotisehgal18@gmail.com\fR
+
+.SH COPYRIGHT
+Copyright (C) 2023 Manoti Sehgal

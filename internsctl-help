@@ -1,0 +1,22 @@
+Usage: internsctl [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --version             Show the version and exit.
+  --help                Show this message and exit.
+
+Commands:
+  cpu getinfo                Get CPU information of the server.
+  memory getinfo             Get memory information of the server.
+  user create <username>     Create a new user on the server.
+  user list                  List all regular users on the server.
+  user list --sudo-only      List all users with sudo permissions on the server.
+  file getinfo <file-name>   Get information about a file.
+
+Examples:
+  internsctl cpu getinfo
+  internsctl memory getinfo
+  internsctl user create john
+  internsctl user list
+  internsctl user list --sudo-only
+  internsctl file getinfo my-file.txt
+

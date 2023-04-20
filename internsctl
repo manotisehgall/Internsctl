@@ -6,6 +6,8 @@ memory_info=$(free -h)
 reg_users=$(cut -d: -f1 /etc/passwd)
 sudo_users=$(grep -Po '^sudo.+:\K.*$' /etc/group)
 
+
+
 display_ver(){
     echo "version v0.1.0"
 }
@@ -54,3 +56,23 @@ then
     exit 0
 fi
 
+if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ]; 
+then
+    file="$3"
+    if [ -f "$file" ]; 
+    then
+        access=$(stat -c %A "$file")
+        size=$(stat -c %s "$file")
+        owner=$(stat -c %U "$file")
+        modify=$(stat -c %y "$file")
+        echo "File: $file"
+        echo "Access: $access"
+        echo "Size(B): $size"
+        echo "Owner: $owner"
+        echo "Modify: $modify"
+        exit 0
+    else
+        echo "File does not exist"
+        exit 1
+    fi
+fi

@@ -56,6 +56,40 @@ then
     exit 0
 fi
 
+
+if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ] && [ -n "$4" ]; then
+    file="$4"
+    if [ -f "$file" ]; then
+        if [ "$3" == "--size" ] || [ "$3" == "-s" ]; then
+            size=$(stat -c %s "$file")
+            echo "$size"
+            exit 0
+        elif [ "$3" == "--permissions" ] || [ "$3" == "-p" ]; then
+            permissions=$(stat -c %A "$file")
+            echo "$permissions"
+            exit 0
+        elif [ "$3" == "--owner" ] || [ "$3" == "-o" ]; then
+            owner=$(stat -c %U "$file")
+            echo "$owner"
+            exit 0
+        elif [ "$3" == "--last-modified" ] || [ "$3" == "-m" ]; then
+            modified=$(stat -c %y "$file")
+            echo "$modified"
+            exit 0
+        else
+            echo "Invalid option"
+            exit 1
+        fi
+    else
+        echo "File does not exist"
+        exit 1
+    fi
+else
+    echo "Invalid arguments"
+    exit 1
+fi
+
+
 if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ]; 
 then
     file="$3"
@@ -76,3 +110,37 @@ then
         exit 1
     fi
 fi
+
+#if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ] && [ -n "$4" ];
+ #then
+#    file="$4"
+#    if [ -f "$file" ];
+#    then
+#        if [ "$3" == "--size" ] || [ "$3" == "--s" ];
+#        then
+#            size=$(stat -c %s "$file")
+#            echo "$size"
+#            exit 0
+#        elif [ "$3" == "--permissions" ] || [ "$3" == "-p" ];
+#        then
+#            permissions=$(stat -c %A "$file")
+#            echo "$permissions"
+#            exit 0
+#        elif [ "$3" == "--owner" ] || [ "$3" == "-o" ];
+       # then
+      #      owner=$(stat -c %U "$file")
+     #       echo "$owner"
+    #        exit 0
+ #       elif [ "$3" == "--last-modified" ] || [ "$3" == "-m" ];
+  #      then
+   #         modified=$(stat -c %y "$file")
+    #        echo "$modified"
+     #       exit 0
+     #   fi
+   # else
+    #    echo "File does not exist"
+    #    exit 1
+   # fi
+#fi
+
+

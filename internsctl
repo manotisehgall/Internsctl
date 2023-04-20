@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # Define variables
+cpu_info=$(lscpu)
+memory_info=$(free -h)
+
+
 display_ver(){
     echo "version v0.1.0"
 }
@@ -16,4 +20,16 @@ then
     display_ver
     exit 0
 fi 
+
+if [ "$1" == "cpu" ] && [ "$2" == "getinfo" ];
+then
+    echo "$cpu_info"
+    exit 0
+fi
+
+if [ "$1" == "memory" ] && [ "$2" == "getinfo" ];
+then
+    echo "$memory_info"
+    exit 0
+fi
 

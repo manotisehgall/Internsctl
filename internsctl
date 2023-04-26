@@ -57,90 +57,63 @@ then
 fi
 
 
-if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ] && [ -n "$4" ]; then
-    file="$4"
-    if [ -f "$file" ]; then
-        if [ "$3" == "--size" ] || [ "$3" == "-s" ]; then
+if [ "$1" == "file" ] && [ "$2" == "getinfo" ];
+then
+    if [ "$#" -eq 4 ]; 
+    then
+        file="$4"
+        if [ -f "$file" ];
+        then
+            if [ "$3" == "--size" ] || [ "$3" == "-s" ];
+            then
+                size=$(stat -c %s "$file")
+                echo "$size"
+                exit 0
+            elif [ "$3" == "--permissions" ] || [ "$3" == "-p" ];
+            then
+                permissions=$(stat -c %A "$file")
+                echo "$permissions"
+                exit 0
+            elif [ "$3" == "--owner" ] || [ "$3" == "-o" ]; 
+            then
+                owner=$(stat -c %U "$file")
+                echo "$owner"
+                exit 0
+            elif [ "$3" == "--last-modified" ] || [ "$3" == "-m" ]; then
+                modified=$(stat -c %y "$file")
+                echo "$modified"
+                exit 0
+            else
+                echo "Invalid option"
+                exit 1
+            fi
+        else
+            echo "File does not exist"
+            exit 1
+        fi
+    elif [ "$#" -eq 3 ]; then
+        file="$3"
+        if [ -f "$file" ]; then
+            access=$(stat -c %A "$file")
             size=$(stat -c %s "$file")
-            echo "$size"
-            exit 0
-        elif [ "$3" == "--permissions" ] || [ "$3" == "-p" ]; then
-            permissions=$(stat -c %A "$file")
-            echo "$permissions"
-            exit 0
-        elif [ "$3" == "--owner" ] || [ "$3" == "-o" ]; then
             owner=$(stat -c %U "$file")
-            echo "$owner"
-            exit 0
-        elif [ "$3" == "--last-modified" ] || [ "$3" == "-m" ]; then
-            modified=$(stat -c %y "$file")
-            echo "$modified"
+            modify=$(stat -c %y "$file")
+            echo "File: $file"
+            echo "Access: $access"
+            echo "Size(B): $size"
+            echo "Owner: $owner"
+            echo "Modify: $modify"
             exit 0
         else
-            echo "Invalid option"
+            echo "File does not exist"
             exit 1
         fi
     else
-        echo "File does not exist"
+        echo "Invalid number of arguments"
         exit 1
     fi
 else
     echo "Invalid arguments"
     exit 1
 fi
-
-
-if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ]; 
-then
-    file="$3"
-    if [ -f "$file" ]; 
-    then
-        access=$(stat -c %A "$file")
-        size=$(stat -c %s "$file")
-        owner=$(stat -c %U "$file")
-        modify=$(stat -c %y "$file")
-        echo "File: $file"
-        echo "Access: $access"
-        echo "Size(B): $size"
-        echo "Owner: $owner"
-        echo "Modify: $modify"
-        exit 0
-    else
-        echo "File does not exist"
-        exit 1
-    fi
-fi
-
-#if [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ -n "$3" ] && [ -n "$4" ];
- #then
-#    file="$4"
-#    if [ -f "$file" ];
-#    then
-#        if [ "$3" == "--size" ] || [ "$3" == "--s" ];
-#        then
-#            size=$(stat -c %s "$file")
-#            echo "$size"
-#            exit 0
-#        elif [ "$3" == "--permissions" ] || [ "$3" == "-p" ];
-#        then
-#            permissions=$(stat -c %A "$file")
-#            echo "$permissions"
-#            exit 0
-#        elif [ "$3" == "--owner" ] || [ "$3" == "-o" ];
-       # then
-      #      owner=$(stat -c %U "$file")
-     #       echo "$owner"
-    #        exit 0
- #       elif [ "$3" == "--last-modified" ] || [ "$3" == "-m" ];
-  #      then
-   #         modified=$(stat -c %y "$file")
-    #        echo "$modified"
-     #       exit 0
-     #   fi
-   # else
-    #    echo "File does not exist"
-    #    exit 1
-   # fi
-#fi
-
 
